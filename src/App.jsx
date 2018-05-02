@@ -9,7 +9,7 @@ class App extends Component {
         <Grid 
         	heightGrid={10}
         	widthGrid={10}
-        	cellSize={20}
+        	cellSize={40}
         />
       </div>
     );

@@ -5,6 +5,11 @@ class Cell extends Component {
 		super(props);
 	}
 
+	componentDidMount(){
+		const { id } = this.props;
+		this.props.addCell(id)
+	} 
+
 	render() {
 		const {id, widthGrid, cellSize} = this.props;
 		const row = Math.floor(id/widthGrid);

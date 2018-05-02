@@ -1,7 +1,7 @@
 // initial redux state
 const initial = {
-	// players: [
-	// ],
+	current: [],
+	next: []
 }
 
 export default initial;
