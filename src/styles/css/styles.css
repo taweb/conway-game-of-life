@@ -1,2 +1,5 @@
-body {
-  background-color: black; }
+.cell {
+  position: absolute;
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 12px; }
