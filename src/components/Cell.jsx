@@ -6,17 +6,19 @@ class Cell extends Component {
 	}
 
 	render() {
-		const {id, width} = this.props;
-		const row = Math.floor(id/width);
-		const col = id % width;
-		const left = col * 100;
-		const top = row * 100;
+		const {id, widthGrid, cellSize} = this.props;
+		const row = Math.floor(id/widthGrid);
+		const col = id % widthGrid;
+		const left = col * cellSize;
+		const top = row * cellSize;
 		return (
 			<div 
 				className="cell"
 				style={{
 					left: `${left}px`,
-					top: `${top}px`
+					top: `${top}px`,
+					width: `${cellSize}px`,
+					height: `${cellSize}px`
 				}}
 			>
 				{id}

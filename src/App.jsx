@@ -7,9 +7,9 @@ class App extends Component {
     return (
       <div className="App">
         <Grid 
-        	height={5}
-        	width={5}
-        	// cellSize={100}
+        	heightGrid={10}
+        	widthGrid={10}
+        	cellSize={20}
         />
       </div>
     );

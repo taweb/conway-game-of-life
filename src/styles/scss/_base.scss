@@ -1,9 +1,7 @@
 
 .cell {
 	position: absolute;
-	height: 100px;
-	width: 100px;
-	// background-color: red;
 	border: 1px solid black;
-	
+	box-sizing: border-box;
+	font-size: 12px;
 }

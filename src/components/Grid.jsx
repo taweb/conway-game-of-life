@@ -8,8 +8,8 @@ class Grid extends Component {
 	}
 
 	render() {
-		const {height, width} = this.props;
-		const numCells = height * width;
+		const {heightGrid, widthGrid, cellSize} = this.props;
+		const numCells = heightGrid * widthGrid;
 		let cells = [];
 		for(let i=0; i<numCells; i++){
 			cells.push(i);
@@ -21,9 +21,10 @@ class Grid extends Component {
 						<Cell 
 							key={i}
 							id={i}
-							width={width} 
+							widthGrid={widthGrid} 
+							cellSize={cellSize}
 						/>
-						)
+					)
 				})}
 			</div>
 		)
