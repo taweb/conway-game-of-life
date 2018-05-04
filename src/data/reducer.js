@@ -1,3 +1,40 @@
+const logHello = () => {
+	console.log("hello")
+}
+
+const findNeighbours = (id, widthGrid) => {
+
+	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
+	const right = (cell, widthGrid) => (cell + 1) % widthGrid === 0 ? (cell- widthGrid) + 1 : cell + 1;
+
+	let neighboursArr = [];
+
+	const south = (id + widthGrid) % (widthGrid*widthGrid);
+	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
+
+	const northwest = left(north, widthGrid);
+	const northeast = right(north, widthGrid);
+	const southwest = left(south, widthGrid);
+	const southeast = right(south, widthGrid);
+
+	neighboursArr.push(north, south, east, west, northeast, northwest, southeast, southwest);
+
+	return neighboursArr;
+}
+
+const evaluateCell = (liveNeighbours, living) => {
+	if(living){
+		if(liveNeighbours < 2 || liveNeighbours > 3 ) {
+			return false;
+		} 
+		return true;
+	}else{
+		return liveNeighbours === 3;
+	}
+}
+
 const populateCells = (state, { payload }) => {
 	let current = state.current.slice();
 	for(let i=0; i<payload; i++){
@@ -22,7 +59,17 @@ const selectCell = (state, { payload }) => {
 }
 
 const nextGeneration = (state) => {
-	console.log("hello")
+	const widthGrid = Math.sqrt(state.current.length);
+	// console.log(widthGrid);
+	state.current.map((c, i) => {
+		const isLiveNow = state.current[i].live;
+		const neighbourIds = findNeighbours(i, widthGrid); 
+		const numLivingNeighbours = neighbourIds.reduce((acc, id) => {
+			return acc + state.current[id].live; 
+		}, 0)
+		const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
+	})
+
 	return {
 		...state
 	}

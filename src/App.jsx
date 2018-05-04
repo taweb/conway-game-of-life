@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <p>Life Game</p>
-        <Grid cellSize={10} />
+        <Grid cellSize={100} />
         <Controls />
       </div>
     );

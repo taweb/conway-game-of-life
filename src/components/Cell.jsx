@@ -62,6 +62,7 @@ class Cell extends Component {
 					height: `${cellSize}px`
 				}}
 			>
+			{id}
 			</div>
 		)
 	}
