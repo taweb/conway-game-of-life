@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import Grid from './components/Grid';
+import Grid from './containers/Grid';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Grid 
-        	heightGrid={10}
-        	widthGrid={10}
-        	cellSize={20}
-        />
+        <p>Life Game</p>
+        <Grid cellSize={10} />
+        <button style={{display: "block"}}>Next Generation</button>
       </div>
     );
-  }
+  } 
 }
 
 export default App;
