@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Grid from './containers/Grid';
+import Controls from './containers/Controls';
 
 class App extends Component {
   render() {
@@ -8,7 +9,7 @@ class App extends Component {
       <div className="App">
         <p>Life Game</p>
         <Grid cellSize={10} />
-        <button style={{display: "block"}}>Next Generation</button>
+        <Controls />
       </div>
     );
   } 

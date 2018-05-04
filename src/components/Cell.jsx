@@ -39,7 +39,7 @@ class Cell extends Component {
 		const { id, widthGrid } = this.props;
 		this.props.selectCell(id);
 
-		printNeighbours(id, widthGrid);
+		// printNeighbours(id, widthGrid);
 	}	
 
 	render() {
@@ -65,10 +65,6 @@ class Cell extends Component {
 			</div>
 		)
 	}
-}
-
-Cell.defaultProps = {
-	isLive: "dead"
 }
 
 export default Cell;
