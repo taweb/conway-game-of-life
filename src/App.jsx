@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <p>Life Game</p>
-        <Grid cellSize={50} />
+        <Grid cellSize={10} />
         <button style={{display: "block"}}>Next Generation</button>
       </div>
     );

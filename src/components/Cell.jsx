@@ -2,14 +2,29 @@ import React, { Component } from 'react';
 
 const printNeighbours = (id, widthGrid) => {
 	console.log(`clicked: ${id}`);
+
+	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
+	const right = (cell, widthGrid) => (cell + 1) % widthGrid === 0 ? (cell- widthGrid) + 1 : cell + 1;
+
 	const south = (id + widthGrid) % (widthGrid*widthGrid);
 	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
 
+	const northwest = left(north, widthGrid);
+	const northeast = right(north, widthGrid);
+	const southwest = left(south, widthGrid);
+	const southeast = right(south, widthGrid);
 
 	console.log(`south: ${south}`);
 	console.log(`north: ${north}`);
+	console.log(`east: ${east}`);
+	console.log(`west: ${west}`);
+	console.log(`nw: ${northwest}`);
+	console.log(`ne: ${northeast}`);
+	console.log(`sw: ${southwest}`);
+	console.log(`se: ${southeast}`);
 
-	// console.log(`right: ${id}`);
 }
 
 
@@ -47,7 +62,6 @@ class Cell extends Component {
 					height: `${cellSize}px`
 				}}
 			>
-				{id}
 			</div>
 		)
 	}
