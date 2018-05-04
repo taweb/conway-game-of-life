@@ -1,6 +1,13 @@
-export const addCell = id => {
+export const populateCells = numCells => {
 	return {
-		type: "addCell",
+		type: "populateCells",
+		payload: numCells
+	}
+}
+
+export const selectCell = id => {
+	return {
+		type: "selectCell",
 		payload: id 
 	}
 }

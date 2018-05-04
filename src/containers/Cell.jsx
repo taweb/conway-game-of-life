@@ -1,11 +1,17 @@
 import Cell from "../components/Cell";
 import { connect } from "react-redux";
-import { addCell } from "../data/actions/state";
+import { selectCell } from "../data/actions/state";
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state, { id }) => {
 	return {
-		addCell: data => dispatch(addCell(data)),
+		currentCell: state.current[id]
 	}
 }
 
-export default connect(null, mapDispatchToProps)(Cell);
+const mapDispatchToProps = dispatch => {
+	return {
+		selectCell: data => dispatch(selectCell(data))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cell);
