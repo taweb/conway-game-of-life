@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
 
+const printNeighbours = (id, widthGrid) => {
+	console.log(`clicked: ${id}`);
+	const south = (id + widthGrid) % (widthGrid*widthGrid);
+	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
+
+
+	console.log(`south: ${south}`);
+	console.log(`north: ${north}`);
+
+	// console.log(`right: ${id}`);
+}
+
+
+
 class Cell extends Component {
 	constructor(props){
 		super(props);
@@ -7,8 +21,10 @@ class Cell extends Component {
 	} 
 
 	onClick(){
-		const { id } = this.props;
-		this.props.selectCell(id)	
+		const { id, widthGrid } = this.props;
+		this.props.selectCell(id);
+
+		printNeighbours(id, widthGrid);
 	}	
 
 	render() {
@@ -31,7 +47,7 @@ class Cell extends Component {
 					height: `${cellSize}px`
 				}}
 			>
-				
+				{id}
 			</div>
 		)
 	}
