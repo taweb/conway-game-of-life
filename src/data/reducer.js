@@ -1,7 +1,3 @@
-const logHello = () => {
-	console.log("hello")
-}
-
 const findNeighbours = (id, widthGrid) => {
 
 	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
@@ -61,6 +57,7 @@ const selectCell = (state, { payload }) => {
 const nextGeneration = (state) => {
 	const widthGrid = Math.sqrt(state.current.length);
 	// console.log(widthGrid);
+		let nextGen = [];
 	state.current.map((c, i) => {
 		const isLiveNow = state.current[i].live;
 		const neighbourIds = findNeighbours(i, widthGrid); 
@@ -68,10 +65,16 @@ const nextGeneration = (state) => {
 			return acc + state.current[id].live; 
 		}, 0)
 		const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
+		// console.log(isLiveNext)
+		// console.log(c)
+		nextGen.push({...c, live: isLiveNext})
 	})
 
+	console.log(nextGen);
+
 	return {
-		...state
+		current: nextGen,
+		next: []
 	}
 }
 
