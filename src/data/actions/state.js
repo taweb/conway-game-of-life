@@ -11,3 +11,9 @@ export const selectCell = id => {
 		payload: id 
 	}
 }
+
+export const nextGeneration = () => {
+	return {
+		type: "nextGeneration"
+	}
+}
