@@ -1,18 +1,35 @@
+const findNeighbours = (id, widthGrid) => {
 
-// const addCell = (state, { payload }) => {
-// 	// get copy of current player array
-// 	let current = state.current.slice();
-// 	// set up new player object to be added to array
-// 	let entry = {
-// 		id: payload,
-// 		live: false
-// 	}
-// 	current.push(entry); 
-// 	return {
-// 		...state,
-// 		current: current,
-// 	}
-// }
+	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
+	const right = (cell, widthGrid) => (cell + 1) % widthGrid === 0 ? (cell- widthGrid) + 1 : cell + 1;
+
+	let neighboursArr = [];
+
+	const south = (id + widthGrid) % (widthGrid*widthGrid);
+	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
+
+	const northwest = left(north, widthGrid);
+	const northeast = right(north, widthGrid);
+	const southwest = left(south, widthGrid);
+	const southeast = right(south, widthGrid);
+
+	neighboursArr.push(north, south, east, west, northeast, northwest, southeast, southwest);
+
+	return neighboursArr;
+}
+
+const evaluateCell = (liveNeighbours, living) => {
+	if(living){
+		if(liveNeighbours < 2 || liveNeighbours > 3 ) {
+			return false;
+		} 
+		return true;
+	}else{
+		return liveNeighbours === 3;
+	}
+}
 
 const populateCells = (state, { payload }) => {
 	let current = state.current.slice();
@@ -37,15 +54,36 @@ const selectCell = (state, { payload }) => {
 	}
 }
 
+const nextGeneration = (state) => {
+	const widthGrid = Math.sqrt(state.current.length);
+	// console.log(widthGrid);
+		let nextGen = [];
+	state.current.map((c, i) => {
+		const isLiveNow = state.current[i].live;
+		const neighbourIds = findNeighbours(i, widthGrid); 
+		const numLivingNeighbours = neighbourIds.reduce((acc, id) => {
+			return acc + state.current[id].live; 
+		}, 0)
+		const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
+		// console.log(isLiveNext)
+		// console.log(c)
+		nextGen.push({...c, live: isLiveNext})
+	})
+
+	console.log(nextGen);
+
+	return {
+		current: nextGen,
+		next: []
+	}
+}
+
 
 const reducer = (state, action) => {
     switch (action.type) {
-    	// case 'addCell': return addCell(state, action);
     	case 'populateCells': return populateCells(state, action);
     	case 'selectCell': return selectCell(state, action);
-    	// case 'editPlayer': return editPlayer(state, action);
-    	// case 'deletePlayer': return deletePlayer(state, action);
-    	// case 'generateTournament': return generateTournament(state, action);
+    	case 'nextGeneration': return nextGeneration(state);
         default: return state;
     }
 }

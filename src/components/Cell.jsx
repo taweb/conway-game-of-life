@@ -1,5 +1,34 @@
 import React, { Component } from 'react';
 
+const printNeighbours = (id, widthGrid) => {
+	console.log(`clicked: ${id}`);
+
+	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
+	const right = (cell, widthGrid) => (cell + 1) % widthGrid === 0 ? (cell- widthGrid) + 1 : cell + 1;
+
+	const south = (id + widthGrid) % (widthGrid*widthGrid);
+	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
+
+	const northwest = left(north, widthGrid);
+	const northeast = right(north, widthGrid);
+	const southwest = left(south, widthGrid);
+	const southeast = right(south, widthGrid);
+
+	console.log(`south: ${south}`);
+	console.log(`north: ${north}`);
+	console.log(`east: ${east}`);
+	console.log(`west: ${west}`);
+	console.log(`nw: ${northwest}`);
+	console.log(`ne: ${northeast}`);
+	console.log(`sw: ${southwest}`);
+	console.log(`se: ${southeast}`);
+
+}
+
+
+
 class Cell extends Component {
 	constructor(props){
 		super(props);
@@ -7,8 +36,10 @@ class Cell extends Component {
 	} 
 
 	onClick(){
-		const { id } = this.props;
-		this.props.selectCell(id)	
+		const { id, widthGrid } = this.props;
+		this.props.selectCell(id);
+
+		// printNeighbours(id, widthGrid);
 	}	
 
 	render() {
@@ -31,14 +62,10 @@ class Cell extends Component {
 					height: `${cellSize}px`
 				}}
 			>
-				
+			
 			</div>
 		)
 	}
-}
-
-Cell.defaultProps = {
-	isLive: "dead"
 }
 
 export default Cell;
