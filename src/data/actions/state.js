@@ -17,3 +17,9 @@ export const nextGeneration = () => {
 		type: "nextGeneration"
 	}
 }
+
+export const toggleAutoGeneration = () => {
+	return {
+		type: "toggleAutoGeneration"
+	}
+}

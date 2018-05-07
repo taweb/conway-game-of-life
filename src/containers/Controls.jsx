@@ -1,11 +1,18 @@
 import Controls from "../components/Controls";
 import { connect } from "react-redux";
-import { nextGeneration } from "../data/actions/state";
+import { nextGeneration, toggleAutoGeneration } from "../data/actions/state";
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state) => {
 	return {
-		nextGeneration: () => dispatch(nextGeneration())
+		auto: state.options.autoGeneration
 	}
 }
 
-export default connect(null, mapDispatchToProps)(Controls);
+const mapDispatchToProps = dispatch => {
+	return {
+		nextGeneration: () => dispatch(nextGeneration()),
+		toggleAutoGeneration: () => dispatch(toggleAutoGeneration())
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Controls);

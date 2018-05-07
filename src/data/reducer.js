@@ -67,14 +67,23 @@ const nextGeneration = (state) => {
 		const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
 		// console.log(isLiveNext)
 		// console.log(c)
-		nextGen.push({...c, live: isLiveNext})
+		return nextGen.push({...c, live: isLiveNext})
 	})
 
-	console.log(nextGen);
-
 	return {
+		...state,
 		current: nextGen,
-		next: []
+	}
+}
+
+const toggleAutoGeneration = (state) => {
+	const { autoGeneration } = state.options;
+	return {
+		...state,
+		options: {
+			...state.options,
+			autoGeneration: !autoGeneration
+		}
 	}
 }
 
@@ -84,6 +93,7 @@ const reducer = (state, action) => {
     	case 'populateCells': return populateCells(state, action);
     	case 'selectCell': return selectCell(state, action);
     	case 'nextGeneration': return nextGeneration(state);
+    	case 'toggleAutoGeneration': return toggleAutoGeneration(state)
         default: return state;
     }
 }
