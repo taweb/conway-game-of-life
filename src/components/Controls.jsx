@@ -4,32 +4,38 @@ class Controls extends Component {
 	constructor(props){
 		super(props);
 		this.onClick = this.onClick.bind(this);
-		this.autoGenerate = this.autoGenerate.bind(this);
+		this.setAutoGeneration = this.setAutoGeneration.bind(this);
 		this.toggleAutoGeneration = this.toggleAutoGeneration.bind(this);
 	} 
 
 	onClick(){
-	const { auto } = this.props;
-	auto ? this.toggleAutoGeneration(auto) : this.props.nextGeneration();
-		// this.props.nextGeneration();
+		const { auto } = this.props;
+		auto ? 
+			this.toggleAutoGeneration() 
+			: 
+			this.props.nextGeneration();
 	}	
 
-	toggleAutoGeneration(setting){
+	toggleAutoGeneration(){
+		const { auto } = this.props;
 		this.props.toggleAutoGeneration();
-		this.autoGenerate(setting);
+		this.setAutoGeneration(auto);
 	}
 
-	autoGenerate(setting) {
-		!setting ? this.update = setInterval(this.props.nextGeneration, 1000) : null;
-		!setting ? this.update : clearInterval(this.update);
+	setAutoGeneration(setting) {
+		!setting ? 
+			this.update = setInterval(this.props.nextGeneration, 100)
+			:
+			clearInterval(this.update);
 	}
 
 	render() {
+		const { auto } = this.props;
 		return (
 			<div> 
-				<button onClick={this.onClick}>Click Me!</button>
-				<button onClick={() => this.toggleAutoGeneration(this.props.auto)}>
-					{!this.props.auto ? "start" : "stop"}
+				<button onClick={this.onClick}>Next Generation</button>
+				<button onClick={this.toggleAutoGeneration}>
+					{!auto ? "start" : "stop"}
 				</button>
 
 			</div>

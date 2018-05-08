@@ -27,8 +27,6 @@ const printNeighbours = (id, widthGrid) => {
 
 }
 
-
-
 class Cell extends Component {
 	constructor(props){
 		super(props);
