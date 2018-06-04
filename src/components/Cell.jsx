@@ -6,9 +6,9 @@ const printNeighbours = (id, widthGrid) => {
 	const left = (cell, widthGrid) => cell % widthGrid === 0 ? cell + (widthGrid - 1) : cell - 1;
 	const right = (cell, widthGrid) => (cell + 1) % widthGrid === 0 ? (cell- widthGrid) + 1 : cell + 1;
 
-	const south = (id + widthGrid) % (widthGrid*widthGrid);
-	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
-	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const south = (id + widthGrid) % (widthGrid * widthGrid);
+	const north = (id < widthGrid) ? (widthGrid * widthGrid) - (widthGrid - id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id - widthGrid) + 1 : id + 1;
 	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
 
 	const northwest = left(north, widthGrid);
@@ -27,13 +27,14 @@ const printNeighbours = (id, widthGrid) => {
 
 }
 
-class Cell extends Component {
+class Cell extends React.Component {
 	constructor(props){
 		super(props);
 		this.onClick = this.onClick.bind(this);
 	} 
 
 	onClick(){
+		console.log('CLICK')
 		const { id, widthGrid } = this.props;
 		this.props.selectCell(id);
 
@@ -41,6 +42,7 @@ class Cell extends Component {
 	}	
 
 	render() {
+		console.log('RENDERCELL')
 		const { id, widthGrid, cellSize, currentCell } = this.props;
 		const row = Math.floor(id/widthGrid);
 		const col = id % widthGrid;

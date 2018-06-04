@@ -21,7 +21,7 @@ class Grid extends Component {
 
 		// console.log(finalGridWidth);
 
-		this.props.populateCells(finalGridWidth*finalGridWidth);
+		this.props.populateCells(finalGridWidth * finalGridWidth);
 
 		this.state = {
 			widthGrid: finalGridWidth
@@ -44,8 +44,8 @@ class Grid extends Component {
 			<div 
 				style={{
 					position: "relative", 
-					height: `${widthGrid*cellSize}px`, 
-					width: `${widthGrid*cellSize}px`, 
+					height: `${widthGrid * cellSize}px`, 
+					width: `${widthGrid * cellSize}px`, 
 					display: "inline-block"
 				}}
 			>

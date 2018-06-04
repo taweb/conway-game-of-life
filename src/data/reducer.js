@@ -5,9 +5,9 @@ const findNeighbours = (id, widthGrid) => {
 
 	let neighboursArr = [];
 
-	const south = (id + widthGrid) % (widthGrid*widthGrid);
-	const north = (id < widthGrid) ? (widthGrid*widthGrid) - (widthGrid-id) : id - widthGrid;
-	const east = (id + 1) % widthGrid === 0 ? (id- widthGrid) + 1 : id + 1;
+	const south = (id + widthGrid) % (widthGrid * widthGrid);
+	const north = (id < widthGrid) ? (widthGrid * widthGrid) - (widthGrid - id) : id - widthGrid;
+	const east = (id + 1) % widthGrid === 0 ? (id - widthGrid) + 1 : id + 1;
 	const west = id % widthGrid === 0 ? id + (widthGrid - 1) : id - 1;
 
 	const northwest = left(north, widthGrid);
@@ -18,6 +18,31 @@ const findNeighbours = (id, widthGrid) => {
 	neighboursArr.push(north, south, east, west, northeast, northwest, southeast, southwest);
 
 	return neighboursArr;
+}
+
+const isLivingLookup = {
+	0: {
+		0: false,
+		1: false,
+		2: false,
+		3: true,
+		4: false,
+		5: false,
+		6: false,
+		7: false,
+		8: false
+	},
+	1: {
+		0: false,
+		1: false,
+		2: true,
+		3: true,
+		4: false,
+		5: false,
+		6: false,
+		7: false,
+		8: false
+	}
 }
 
 const evaluateCell = (liveNeighbours, living) => {
@@ -60,11 +85,13 @@ const nextGeneration = (state) => {
 		let nextGen = [];
 	state.current.map((c, i) => {
 		const isLiveNow = state.current[i].live;
-		const neighbourIds = findNeighbours(i, widthGrid); 
+		const neighbourIds = findNeighbours(i, widthGrid);
+		// console.log("Neighbour Ids", neighbourIds) 
 		const numLivingNeighbours = neighbourIds.reduce((acc, id) => {
 			return acc + state.current[id].live; 
 		}, 0)
-		const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
+		// const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
+		const isLiveNext = isLivingLookup[+isLiveNow][+numLivingNeighbours]
 		// console.log(isLiveNext)
 		// console.log(c)
 		return nextGen.push({...c, live: isLiveNext})
