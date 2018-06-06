@@ -23,3 +23,10 @@ export const toggleAutoGeneration = () => {
 		type: "toggleAutoGeneration"
 	}
 }
+
+export const randomise = factor => {
+	return {
+		type: "randomise",
+		payload: factor
+	}
+}

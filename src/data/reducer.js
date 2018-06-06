@@ -84,7 +84,7 @@ const nextGeneration = (state) => {
 	// console.log(widthGrid);
 		let nextGen = [];
 	state.current.map((c, i) => {
-		const isLiveNow = state.current[i].live;
+		const isLiveNow = c.live;
 		const neighbourIds = findNeighbours(i, widthGrid);
 		// console.log("Neighbour Ids", neighbourIds) 
 		const numLivingNeighbours = neighbourIds.reduce((acc, id) => {
@@ -99,7 +99,7 @@ const nextGeneration = (state) => {
 
 	return {
 		...state,
-		current: nextGen,
+		current: state.current.map((item, i) => item.live === nextGen[i].live ? item : nextGen[i])
 	}
 }
 
@@ -114,13 +114,30 @@ const toggleAutoGeneration = (state) => {
 	}
 }
 
+const randomise = (state, action) => {
+	// console.log(action.payload)
+	// console.log(Math.random() >= 0.5)
+
+	let newGen = []
+	state.current.map((c, i) => {
+		let bool = Math.random() >= 0.8
+		return newGen.push(bool)
+	})
+
+	return {
+		...state,
+		current: state.current.map((item, i) => item.live === newGen[i] ? item : {...item, live: newGen[i]})
+	}
+}
+
 
 const reducer = (state, action) => {
     switch (action.type) {
     	case 'populateCells': return populateCells(state, action);
     	case 'selectCell': return selectCell(state, action);
     	case 'nextGeneration': return nextGeneration(state);
-    	case 'toggleAutoGeneration': return toggleAutoGeneration(state)
+    	case 'toggleAutoGeneration': return toggleAutoGeneration(state);
+    	case 'randomise': return randomise(state, action);
         default: return state;
     }
 }

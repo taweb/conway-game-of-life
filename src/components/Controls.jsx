@@ -6,6 +6,8 @@ class Controls extends Component {
 		this.onClick = this.onClick.bind(this);
 		this.setAutoGeneration = this.setAutoGeneration.bind(this);
 		this.toggleAutoGeneration = this.toggleAutoGeneration.bind(this);
+		this.randomise = this.randomise.bind(this);
+
 	} 
 
 	onClick(){
@@ -29,6 +31,11 @@ class Controls extends Component {
 			clearInterval(this.update);
 	}
 
+	randomise(factor) {
+		// console.log(factor)
+		this.props.randomise(factor);
+	}
+
 	render() {
 		const { auto } = this.props;
 		return (
@@ -37,7 +44,7 @@ class Controls extends Component {
 				<button onClick={this.toggleAutoGeneration}>
 					{!auto ? "start" : "stop"}
 				</button>
-
+				<button onClick={() => this.randomise(0.5)}>Randomise!</button>
 			</div>
 		)
 	}
