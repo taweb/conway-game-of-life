@@ -8,8 +8,10 @@ class Controls extends Component {
 		this.toggleAutoGeneration = this.toggleAutoGeneration.bind(this);
 		this.randomise = this.randomise.bind(this);
 		this.onRateChange = this.onRateChange.bind(this);
+		this.selectOption = this.selectOption.bind(this);
 		this.state = {
-			rate: 10
+			rate: 400,
+			random: 50
 		};
 	} 
 
@@ -17,7 +19,7 @@ class Controls extends Component {
 		const { auto } = this.props;
 		auto ? 
 			this.toggleAutoGeneration() 
-			: 
+			:  
 			this.props.nextGeneration();
 	}	
 
@@ -36,26 +38,31 @@ class Controls extends Component {
 	}
 
 	randomise(factor) {
-		// console.log(factor)
 		this.props.randomise(factor);
 	}
 
 	onRateChange(e) {
+		const { auto } = this.props;
 		const { value } = e.target;
 		this.setState({
+			...this.state,
 			rate: value
-		}, this.UpdateAutoGeneration(value))
+		}, this.UpdateAutoGeneration(value, auto))
 	}
 
-	UpdateAutoGeneration(value){
-	// 	const adjustedRate = 1000 - value;
-	// 	clearInterval(this.update);
-	// 	this.update = setInterval(adjustedRate); 
-	clearInterval(this.update);
-	const { auto } = this.props;
-	const updateRate = true;
-	const adjustedRate = 860 - value
-	this.setAutoGeneration(updateRate, auto, adjustedRate)
+	UpdateAutoGeneration(value, auto){
+		if (!auto) {
+			return;
+		}
+		clearInterval(this.update);
+		const updateRate = true;
+		const adjustedRate = 860 - value
+		this.setAutoGeneration(updateRate, auto, adjustedRate)
+	}
+
+	selectOption(e) {
+		const newRandom = e.target.value;
+		this.setState(state => ({...state, random: newRandom}))
 	}
 
 	render() {
@@ -76,8 +83,13 @@ class Controls extends Component {
 					id="utilslider"
 					onChange={this.onRateChange}
 				/>
-				<p>{this.state.rate}</p>
-				<button onClick={() => this.randomise(0.5)}>Randomise!</button>
+				{/* <p>{this.state.rate}</p> */}
+				<button onClick={() => this.randomise(this.state.random)}>Randomise!</button>
+				<select value={this.state.random}onChange={this.selectOption}>
+					<option value="20">20%</option>
+					<option value="40">40%</option>
+					<option value="60">60%</option>
+				</select>
 			</div>
 		)
 	}

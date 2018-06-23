@@ -120,9 +120,9 @@ const randomise = (state, action) => {
 
 	let newGen = []
 	state.current.map((c, i) => {
-		let bool = Math.random() >= 0.8
+		let bool = Math.floor(Math.random() * 100 + 1) <= action.payload
 		return newGen.push(bool)
-	})
+	})	
 
 	return {
 		...state,
