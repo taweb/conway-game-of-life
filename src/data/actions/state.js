@@ -17,3 +17,16 @@ export const nextGeneration = () => {
 		type: "nextGeneration"
 	}
 }
+
+export const toggleAutoGeneration = () => {
+	return {
+		type: "toggleAutoGeneration"
+	}
+}
+
+export const randomise = factor => {
+	return {
+		type: "randomise",
+		payload: factor
+	}
+}
