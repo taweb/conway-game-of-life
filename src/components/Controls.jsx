@@ -71,6 +71,7 @@ class Controls extends Component {
 		const adjustedRate = 860 - rate;
 		return (
 			<div> 
+				<div>Regeneration count: {this.props.count}</div>
 				<button onClick={this.onClick}>Next Generation</button>
 				<button onClick={()=>this.toggleAutoGeneration(adjustedRate)}>
 					{!auto ? "start" : "stop"}

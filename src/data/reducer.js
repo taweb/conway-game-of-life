@@ -75,7 +75,11 @@ const populateCells = (state, { payload }) => {
 const selectCell = (state, { payload }) => {
 	return {
 		...state,
-		current: state.current.map(c => c.id === payload ? ({...c, live: !c.live}) : c)
+		current: state.current.map(c => c.id === payload ? ({...c, live: !c.live}) : c),
+		options: {
+			...state.options,
+			count: 0
+		}
 	}
 }
 
@@ -99,7 +103,11 @@ const nextGeneration = (state) => {
 
 	return {
 		...state,
-		current: state.current.map((item, i) => item.live === nextGen[i].live ? item : nextGen[i])
+		current: state.current.map((item, i) => item.live === nextGen[i].live ? item : nextGen[i]),
+		options: {
+			...state.options,
+			count: state.options.count + 1
+		}
 	}
 }
 
@@ -126,7 +134,11 @@ const randomise = (state, action) => {
 
 	return {
 		...state,
-		current: state.current.map((item, i) => item.live === newGen[i] ? item : {...item, live: newGen[i]})
+		current: state.current.map((item, i) => item.live === newGen[i] ? item : {...item, live: newGen[i]}),
+		options: {
+			...state.options,
+			count: 0
+		}
 	}
 }
 

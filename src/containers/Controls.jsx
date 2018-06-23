@@ -4,7 +4,8 @@ import { nextGeneration, toggleAutoGeneration, randomise } from "../data/actions
 
 const mapStateToProps = (state) => {
 	return {
-		auto: state.options.autoGeneration
+		auto: state.options.autoGeneration,
+		count: state.options.count
 	}
 }
 
