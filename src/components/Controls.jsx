@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import Button from './Button';
 
 class Controls extends Component {
 	constructor(props){
 		super(props);
-		this.onClick = this.onClick.bind(this);
+		this.nextGeneration = this.nextGeneration.bind(this);
 		this.setAutoGeneration = this.setAutoGeneration.bind(this);
 		this.toggleAutoGeneration = this.toggleAutoGeneration.bind(this);
 		this.randomise = this.randomise.bind(this);
@@ -15,7 +16,7 @@ class Controls extends Component {
 		};
 	} 
 
-	onClick(){
+	nextGeneration(){
 		const { auto } = this.props;
 		auto ? 
 			this.toggleAutoGeneration() 
@@ -72,10 +73,10 @@ class Controls extends Component {
 		return (
 			<div> 
 				<div>Regeneration count: {this.props.count}</div>
-				<button onClick={this.onClick}>Next Generation</button>
-				<button onClick={()=>this.toggleAutoGeneration(adjustedRate)}>
+				<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
+				<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 					{!auto ? "start" : "stop"}
-				</button>
+				</Button>
 				<input 
 					type="range" 
 					min="0" 
@@ -84,8 +85,9 @@ class Controls extends Component {
 					id="utilslider"
 					onChange={this.onRateChange}
 				/>
-				{/* <p>{this.state.rate}</p> */}
-				<button onClick={() => this.randomise(this.state.random)}>Randomise!</button>
+				<Button onButtonClick={this.randomise} value={this.state.random}>
+					Randomise!
+				</Button>
 				<select value={this.state.random}onChange={this.selectOption}>
 					<option value="20">20%</option>
 					<option value="40">40%</option>

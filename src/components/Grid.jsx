@@ -49,7 +49,6 @@ class Grid extends Component {
 					display: "inline-block"
 				}}
 			>
-				<div>Hello</div>
 				{cells.map(i=>{
 					return ( 
 						<Cell 
