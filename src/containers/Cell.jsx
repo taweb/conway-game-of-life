@@ -2,15 +2,15 @@ import Cell from "../components/Cell";
 import { connect } from "react-redux";
 import { selectCell } from "../data/actions/state";
 
-const mapStateToProps = (state, { id }) => {
+const mapStateToProps = (state, { id, gridId }) => {
 	return {
-		currentCell: state.current[id]
+		currentCell: state[gridId][id]
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		selectCell: data => dispatch(selectCell(data))
+		selectCell: (id, gridId) => dispatch(selectCell(id, gridId))
 	}
 }
 

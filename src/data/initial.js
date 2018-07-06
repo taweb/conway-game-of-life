@@ -4,7 +4,7 @@ const initial = {
 		autoGeneration: false,
 		count: 0
 	},
-	current: [],
+	life: [],
 	next: []
 }
 

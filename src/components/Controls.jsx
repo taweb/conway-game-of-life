@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from './Button';
+import LifeRules from './LifeRules';
 
 class Controls extends Component {
 	constructor(props){
@@ -72,7 +73,7 @@ class Controls extends Component {
 		const adjustedRate = 860 - rate;
 		return (
 			<div> 
-				<div>Regeneration count: {this.props.count}</div>
+				<LifeRules />
 				<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
 				<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 					{!auto ? "start" : "stop"}

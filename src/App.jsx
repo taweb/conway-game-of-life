@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import Grid from './containers/Grid';
 import Controls from './containers/Controls';
+import Header from './containers/Header';
+import GridLayout from './containers/GridLayout';
+import LifeGrid from './components/LifeGrid';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>Life Game</p>
-        <Grid cellSize={50} />
+        <Header />
+        <LifeGrid cellSize={15}/>
         <Controls />
       </div>
     );

@@ -57,9 +57,11 @@ const evaluateCell = (liveNeighbours, living) => {
 }
 
 const populateCells = (state, { payload }) => {
-	let current = state.current.slice();
-	for(let i=0; i<payload; i++){
-		current.push(
+	const name = payload.id
+	console.log(payload.cells)
+	const copy = state[name].slice();
+	for(let i=0; i<payload.cells; i++){
+		copy.push(
 		{
 			id: i,
 			live: false
@@ -68,14 +70,15 @@ const populateCells = (state, { payload }) => {
 	}
 	return {
 		...state,
-		current: current
+		[name]: copy
 	}
 }
 
 const selectCell = (state, { payload }) => {
+	const { id, gridId } = payload
 	return {
 		...state,
-		current: state.current.map(c => c.id === payload ? ({...c, live: !c.live}) : c),
+		[gridId]: state[gridId].map(c => c.id === id ? ({...c, live: !c.live}) : c),
 		options: {
 			...state.options,
 			count: 0
@@ -84,15 +87,15 @@ const selectCell = (state, { payload }) => {
 }
 
 const nextGeneration = (state) => {
-	const widthGrid = Math.sqrt(state.current.length);
+	const widthGrid = Math.sqrt(state.life.length);
 	// console.log(widthGrid);
 		let nextGen = [];
-	state.current.map((c, i) => {
+	state.life.map((c, i) => {
 		const isLiveNow = c.live;
 		const neighbourIds = findNeighbours(i, widthGrid);
 		// console.log("Neighbour Ids", neighbourIds) 
 		const numLivingNeighbours = neighbourIds.reduce((acc, id) => {
-			return acc + state.current[id].live; 
+			return acc + state.life[id].live; 
 		}, 0)
 		// const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
 		const isLiveNext = isLivingLookup[+isLiveNow][+numLivingNeighbours]
@@ -103,7 +106,7 @@ const nextGeneration = (state) => {
 
 	return {
 		...state,
-		current: state.current.map((item, i) => item.live === nextGen[i].live ? item : nextGen[i]),
+		life: state.life.map((item, i) => item.live === nextGen[i].live ? item : nextGen[i]),
 		options: {
 			...state.options,
 			count: state.options.count + 1
@@ -127,14 +130,14 @@ const randomise = (state, action) => {
 	// console.log(Math.random() >= 0.5)
 
 	let newGen = []
-	state.current.map((c, i) => {
+	state.life.map((c, i) => {
 		let bool = Math.floor(Math.random() * 100 + 1) <= action.payload
 		return newGen.push(bool)
 	})	
 
 	return {
 		...state,
-		current: state.current.map((item, i) => item.live === newGen[i] ? item : {...item, live: newGen[i]}),
+		life: state.life.map((item, i) => item.live === newGen[i] ? item : {...item, live: newGen[i]}),
 		options: {
 			...state.options,
 			count: 0

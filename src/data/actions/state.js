@@ -1,14 +1,20 @@
-export const populateCells = numCells => {
+export const populateCells = (cells, id) => {
 	return {
 		type: "populateCells",
-		payload: numCells
+		payload: {
+			cells,
+			id
+		}
 	}
 }
 
-export const selectCell = id => {
+export const selectCell = (id, gridId) => {
 	return {
 		type: "selectCell",
-		payload: id 
+		payload: {
+			id,
+			gridId
+		} 
 	}
 }
 
