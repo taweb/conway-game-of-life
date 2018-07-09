@@ -43,3 +43,9 @@ export const selectRule = id => {
 		payload: id
 	}
 }
+
+export const resetRules = () => {
+	return {
+		type: "resetRules"
+	}
+}

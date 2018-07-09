@@ -1,6 +1,6 @@
 import Controls from "../components/Controls";
 import { connect } from "react-redux";
-import { nextGeneration, toggleAutoGeneration, randomise, selectRule } from "../data/actions/state";
+import { nextGeneration, toggleAutoGeneration, randomise, selectRule, resetRules } from "../data/actions/state";
 
 const mapStateToProps = (state) => {
 	return {
@@ -14,7 +14,8 @@ const mapDispatchToProps = dispatch => {
 		nextGeneration: () => dispatch(nextGeneration()),
 		toggleAutoGeneration: () => dispatch(toggleAutoGeneration()),
 		randomise: (factor) => dispatch(randomise(factor)),
-		selectRule: (id) => dispatch(selectRule(id))
+		selectRule: (id) => dispatch(selectRule(id)),
+		resetRules: () => dispatch(resetRules())
 	}
 }
 

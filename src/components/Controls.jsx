@@ -11,6 +11,8 @@ class Controls extends Component {
 		this.randomise = this.randomise.bind(this);
 		this.onRateChange = this.onRateChange.bind(this);
 		this.selectOption = this.selectOption.bind(this);
+		this.resetRules = this.resetRules.bind(this);
+
 		this.state = {
 			rate: 400,
 			random: 50
@@ -73,13 +75,17 @@ class Controls extends Component {
 		this.props.selectRule(id);
 	}
 
+	resetRules() {
+		this.props.resetRules()
+	}
+
 	render() {
 		const { auto } = this.props;
 		const { rate } = this.state;
 		const adjustedRate = 860 - rate;
 		return (
 			<div> 
-				<LifeRules onClick={this.selectRule}/>
+				<LifeRules onClick={this.selectRule} onReset={this.resetRules}/>
 				<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
 				<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 					{!auto ? "start" : "stop"}

@@ -20,30 +20,30 @@ const findNeighbours = (id, widthGrid) => {
 	return neighboursArr;
 }
 
-// const isLivingLookup = {
-// 	0: {
-// 		0: false,
-// 		1: false,
-// 		2: false,
-// 		3: true,
-// 		4: false,
-// 		5: false,
-// 		6: false,
-// 		7: false,
-// 		8: false
-// 	},
-// 	1: {
-// 		0: false,
-// 		1: false,
-// 		2: true,
-// 		3: true,
-// 		4: false,
-// 		5: false,
-// 		6: false,
-// 		7: false,
-// 		8: false
-// 	}
-// }
+const initialRules = {
+	0: {
+		0: false,
+		1: false,
+		2: false,
+		3: true,
+		4: false,
+		5: false,
+		6: false,
+		7: false,
+		8: false
+	},
+	1: {
+		0: false,
+		1: false,
+		2: true,
+		3: true,
+		4: false,
+		5: false,
+		6: false,
+		7: false,
+		8: false
+	}
+}
 
 const evaluateCell = (liveNeighbours, living) => {
 	if(living){
@@ -160,6 +160,13 @@ const selectRule = (state, action) => {
 	}
 }
 
+const resetRules = (state) => {
+	return {
+		...state,
+		rules: initialRules
+	}
+} 
+
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -169,6 +176,7 @@ const reducer = (state, action) => {
     	case 'toggleAutoGeneration': return toggleAutoGeneration(state);
 		case 'randomise': return randomise(state, action);
 		case 'selectRule': return selectRule(state, action);
+		case 'resetRules': return resetRules(state);
         default: return state;
     }
 }
