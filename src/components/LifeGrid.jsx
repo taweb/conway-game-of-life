@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GridLayout from '../containers/GridLayout';
+import GridLayout from './GridLayout';
 
 class LifeGrid extends Component {
     constructor(props) {

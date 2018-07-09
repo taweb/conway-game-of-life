@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Controls from './containers/Controls';
 import Header from './containers/Header';
-import GridLayout from './containers/GridLayout';
 import LifeGrid from './containers/LifeGrid';
 
 class App extends Component {
@@ -10,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <LifeGrid cellSize={20} gridId={'life'}/>
+        <LifeGrid cellSize={50} gridId={'life'}/>
         <Controls />
       </div>
     );
