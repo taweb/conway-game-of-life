@@ -9,7 +9,13 @@ class LifeRules extends Component {
                     <p>Living</p>
                     <p>Dead</p>
                 </div>
-                <GridLayout gridId={'next'} cellSize={35} xDim={8} yDim={2}/>
+                <GridLayout 
+                    gridId={'next'} 
+                    cellSize={35} 
+                    xDim={9} 
+                    yDim={2}
+                    {...this.props}
+                />
             </div>
         );
     }

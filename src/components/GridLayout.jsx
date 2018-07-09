@@ -4,9 +4,6 @@ import Cell from '../containers/Cell';
 class GridLayout extends Component {
     constructor(props) { 
 		super(props); 
-        const { xDim, yDim, gridId } = this.props;
-        const numCells = xDim * yDim;
-        this.props.populateCells(numCells, gridId);
 	}  
 
 	render() {

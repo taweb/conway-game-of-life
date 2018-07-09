@@ -36,3 +36,10 @@ export const randomise = factor => {
 		payload: factor
 	}
 }
+
+export const selectRule = id => {
+	return {
+		type: "selectRule",
+		payload: id
+	}
+}

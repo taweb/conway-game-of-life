@@ -15,6 +15,7 @@ class Controls extends Component {
 			rate: 400,
 			random: 50
 		};
+		this.selectRule = this.selectRule.bind(this)
 	} 
 
 	nextGeneration(){
@@ -67,13 +68,18 @@ class Controls extends Component {
 		this.setState(state => ({...state, random: newRandom}))
 	}
 
+	selectRule(id) {
+		// console.log(id)
+		this.props.selectRule(id);
+	}
+
 	render() {
 		const { auto } = this.props;
 		const { rate } = this.state;
 		const adjustedRate = 860 - rate;
 		return (
 			<div> 
-				<LifeRules />
+				<LifeRules onClick={this.selectRule}/>
 				<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
 				<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 					{!auto ? "start" : "stop"}

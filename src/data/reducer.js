@@ -20,30 +20,30 @@ const findNeighbours = (id, widthGrid) => {
 	return neighboursArr;
 }
 
-const isLivingLookup = {
-	0: {
-		0: false,
-		1: false,
-		2: false,
-		3: true,
-		4: false,
-		5: false,
-		6: false,
-		7: false,
-		8: false
-	},
-	1: {
-		0: false,
-		1: false,
-		2: true,
-		3: true,
-		4: false,
-		5: false,
-		6: false,
-		7: false,
-		8: false
-	}
-}
+// const isLivingLookup = {
+// 	0: {
+// 		0: false,
+// 		1: false,
+// 		2: false,
+// 		3: true,
+// 		4: false,
+// 		5: false,
+// 		6: false,
+// 		7: false,
+// 		8: false
+// 	},
+// 	1: {
+// 		0: false,
+// 		1: false,
+// 		2: true,
+// 		3: true,
+// 		4: false,
+// 		5: false,
+// 		6: false,
+// 		7: false,
+// 		8: false
+// 	}
+// }
 
 const evaluateCell = (liveNeighbours, living) => {
 	if(living){
@@ -98,7 +98,7 @@ const nextGeneration = (state) => {
 			return acc + state.life[id].live; 
 		}, 0)
 		// const isLiveNext = evaluateCell(numLivingNeighbours, isLiveNow);
-		const isLiveNext = isLivingLookup[+isLiveNow][+numLivingNeighbours]
+		const isLiveNext = state.rules[+isLiveNow][+numLivingNeighbours]
 		// console.log(isLiveNext)
 		// console.log(c)
 		return nextGen.push({...c, live: isLiveNext})
@@ -145,6 +145,21 @@ const randomise = (state, action) => {
 	}
 }
 
+const selectRule = (state, action) => {
+	const ruleCategory = action.payload <= 8 ? 0 : 1
+	const subKey = ruleCategory === 1 ? action.payload - 9 : action.payload
+	return {
+		...state,
+		rules: {
+			...state.rules,
+			[ruleCategory]: {
+				...state.rules[ruleCategory],
+				[subKey]: !state.rules[ruleCategory][subKey]
+			}
+		}
+	}
+}
+
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -152,7 +167,8 @@ const reducer = (state, action) => {
     	case 'selectCell': return selectCell(state, action);
     	case 'nextGeneration': return nextGeneration(state);
     	case 'toggleAutoGeneration': return toggleAutoGeneration(state);
-    	case 'randomise': return randomise(state, action);
+		case 'randomise': return randomise(state, action);
+		case 'selectRule': return selectRule(state, action);
         default: return state;
     }
 }
