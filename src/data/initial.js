@@ -2,7 +2,8 @@
 const initial = {
 	options: {
 		autoGeneration: false,
-		count: 0
+		count: 0,
+		wrap: false
 	},
 	life: [],
 	rules: {

@@ -12,6 +12,9 @@ class Controls extends Component {
 		this.onRateChange = this.onRateChange.bind(this);
 		this.selectOption = this.selectOption.bind(this);
 		this.resetRules = this.resetRules.bind(this);
+		this.toggleWrap = this.toggleWrap.bind(this);
+		this.clearGrid = this.clearGrid.bind(this);
+
 
 		this.state = {
 			rate: 400,
@@ -79,13 +82,21 @@ class Controls extends Component {
 		this.props.resetRules()
 	}
 
+	toggleWrap() {
+		this.props.toggleWrap()
+	}
+
+	clearGrid() {
+		this.props.clearGrid()
+	}
+
 	render() {
-		const { auto } = this.props;
+		const { auto, wrap } = this.props;
 		const { rate } = this.state;
 		const adjustedRate = 860 - rate;
 		return (
 			<div> 
-				<LifeRules onClick={this.selectRule} onReset={this.resetRules}/>
+				<LifeRules onClick={this.selectRule} onReset={this.resetRules} wrap={wrap} toggleWrap={this.toggleWrap}/>
 				<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
 				<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 					{!auto ? "start" : "stop"}
@@ -106,6 +117,7 @@ class Controls extends Component {
 					<option value="40">40%</option>
 					<option value="60">60%</option>
 				</select>
+				<Button onButtonClick={this.clearGrid}>Clear Grid</Button>
 			</div>
 		)
 	}

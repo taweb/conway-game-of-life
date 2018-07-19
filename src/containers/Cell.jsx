@@ -1,6 +1,5 @@
 import Cell from "../components/Cell";
 import { connect } from "react-redux";
-import { selectCell } from "../data/actions/state";
 
 const mapStateToProps = (state, { id, gridId }) => {
 	return {

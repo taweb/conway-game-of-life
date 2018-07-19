@@ -49,3 +49,15 @@ export const resetRules = () => {
 		type: "resetRules"
 	}
 }
+
+export const toggleWrap = () => {
+	return {
+		type: "toggleWrap"
+	}
+}
+
+export const clearGrid = () => {
+	return {
+		type: "clearGrid"
+	}
+}

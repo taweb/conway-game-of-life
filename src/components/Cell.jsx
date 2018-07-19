@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Cell = (props) => {
-
 	this.handleClick = () => {
 		const { id, gridId } = props;
 		props.onClick(id, gridId);
 	}
 
-	console.log('render cell');
-	const { id, currentCell, xDim, cellSize, onClick } = props;
+	const { id, currentCell, xDim, cellSize } = props;
 	const row = Math.floor(id/xDim);
 	const col = id % xDim;
 	const left = col * cellSize;

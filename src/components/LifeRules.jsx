@@ -11,8 +11,8 @@ class LifeRules extends Component {
             <div>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div style={{marginRight: '10px'}}>
-                        <p>Living</p>
                         <p>Dead</p>
+                        <p>Living</p>
                     </div>
                     <GridLayout 
                         gridId={'next'} 
@@ -22,6 +22,14 @@ class LifeRules extends Component {
                         {...this.props}
                     />
                 </div>
+                <input 
+                    type="checkbox" 
+                    id="wrap" 
+                    name="wrap"
+                    value={this.props.wrap}
+                    onClick={this.props.toggleWrap}
+                />
+                <label htmlFor="wrap">Grid Wrap</label>
                 <Button onButtonClick={this.props.onReset}>Reset Rules</Button>
             </div>
         );
