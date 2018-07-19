@@ -1,17 +1,10 @@
 import Cell from "../components/Cell";
 import { connect } from "react-redux";
-import { selectCell } from "../data/actions/state";
 
-const mapStateToProps = (state, { id }) => {
+const mapStateToProps = (state, { id, gridId }) => {
 	return {
-		currentCell: state.current[id]
+		currentCell: gridId === 'life' ? state[gridId][id].live : state.rules[id>=9 ? 1 : 0][id>=9 ? id - 9 : id]
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		selectCell: data => dispatch(selectCell(data))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cell);
+export default connect(mapStateToProps)(Cell);
