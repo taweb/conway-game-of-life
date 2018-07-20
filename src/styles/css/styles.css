@@ -88,3 +88,51 @@ button {
     color: rgba(253, 253, 253, 0.678); }
   button:active {
     transform: translateY(1px); }
+
+.helptip {
+  top: 18px;
+  right: 18px;
+  transform: translateY(12px);
+  text-align: center;
+  background-color: #BCDBEA;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 26px;
+  cursor: default; }
+  .helptip:before {
+    content: '?';
+    font-weight: bold;
+    color: #fff; }
+  .helptip:hover p {
+    display: block;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out; }
+  .helptip p {
+    display: none;
+    transform: translateY(-250px);
+    text-align: left;
+    background-color: #1E2021;
+    padding: 20px;
+    width: 300px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: -4px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4; }
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.6); }
+  100% {
+    opacity: 100%;
+    transform: scale(1); } }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 100%; } }

@@ -25,10 +25,8 @@ class Controls extends Component {
 
 	nextGeneration(){
 		const { auto } = this.props;
-		auto ? 
-			this.toggleAutoGeneration() 
-			:  
-			this.props.nextGeneration();
+		auto && this.toggleAutoGeneration() 
+		this.props.nextGeneration();
 	}	
 
 	toggleAutoGeneration(rate){
@@ -46,6 +44,8 @@ class Controls extends Component {
 	}
 
 	randomise(factor) {
+		const { auto } = this.props;
+		auto && this.toggleAutoGeneration(); 
 		this.props.randomise(factor);
 	}
 
@@ -74,7 +74,6 @@ class Controls extends Component {
 	}
 
 	selectRule(id) {
-		// console.log(id)
 		this.props.selectRule(id);
 	}
 
@@ -87,6 +86,8 @@ class Controls extends Component {
 	}
 
 	clearGrid() {
+		const { auto } = this.props;
+		auto && this.toggleAutoGeneration(); 
 		this.props.clearGrid()
 	}
 
@@ -97,31 +98,34 @@ class Controls extends Component {
 		return (
 			<div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}> 
 				<LifeRules onClick={this.selectRule} onReset={this.resetRules} wrap={wrap} toggleWrap={this.toggleWrap}/>
-				<div className="lifecontrols">
-					<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
-					<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
-						{!auto ? "start" : "stop"}
-					</Button>
-					<input 
-						type="range" 
-						min="0" 
-						max="800" 
-						value= {this.state.rate} 
-						id="utilslider"
-						onChange={this.onRateChange}
-					/>
-					<Button onButtonClick={this.randomise} value={this.state.random}>
-						Randomise!
-					</Button>
-					<div className="select">
-						<span class="arr"></span>
-						<select value={this.state.random}onChange={this.selectOption}>
-							<option value="20">20%</option>
-							<option value="40">40%</option>
-							<option value="60">60%</option>
-						</select>
+				<div>
+					<h3>Game Controls</h3>
+					<div className="lifecontrols">
+						<Button onButtonClick={this.nextGeneration}>Next Generation</Button>
+						<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
+							{!auto ? "start" : "stop"}
+						</Button>
+						<input 
+							type="range" 
+							min="0" 
+							max="800" 
+							value= {this.state.rate} 
+							id="utilslider"
+							onChange={this.onRateChange}
+						/>
+						<Button onButtonClick={this.randomise} value={this.state.random}>
+							Randomise!
+						</Button>
+						<div className="select">
+							<span className="arr"></span>
+							<select value={this.state.random}onChange={this.selectOption}>
+								<option value="20">20%</option>
+								<option value="40">40%</option>
+								<option value="60">60%</option>
+							</select>
+						</div>
+						<Button onButtonClick={this.clearGrid}>Clear Grid</Button>
 					</div>
-					<Button onButtonClick={this.clearGrid}>Clear Grid</Button>
 				</div>
 			</div>
 		)
