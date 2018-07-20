@@ -8,7 +8,7 @@ class LifeRules extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="liferules">
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div style={{marginRight: '10px'}}>
                         <p>Dead</p>
@@ -22,14 +22,16 @@ class LifeRules extends Component {
                         {...this.props}
                     />
                 </div>
-                <input 
-                    type="checkbox" 
-                    id="wrap" 
-                    name="wrap"
-                    value={this.props.wrap}
-                    onClick={this.props.toggleWrap}
-                />
-                <label htmlFor="wrap">Grid Wrap</label>
+                <div className="checkbox">
+                    <input 
+                        type="checkbox" 
+                        id="wrap" 
+                        name="wrap"
+                        value={this.props.wrap}
+                        onClick={this.props.toggleWrap}
+                    />
+                    <label htmlFor="wrap">Grid Wrap</label>
+                </div>
                 <Button onButtonClick={this.props.onReset}>Reset Rules</Button>
             </div>
         );

@@ -5,7 +5,7 @@ class Header extends Component {
         return (
             <div>
                 <h1>Life Game</h1>
-                <p>{this.props.count}</p>
+                <p>Generation Count: {this.props.count}</p>
             </div>
         );
     }
