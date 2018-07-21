@@ -2,6 +2,26 @@ import React, { Component } from 'react';
 import Button from './Button';
 import LifeRules from './LifeRules';
 
+window.requestAnimationFrame = function() {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        function(f) {
+            window.setTimeout(f,1e3/60);
+        }
+}();
+
+window.cancelRequestAnimFrame = ( function() {
+    return window.cancelAnimationFrame          ||
+        window.webkitCancelRequestAnimationFrame    ||
+        window.mozCancelRequestAnimationFrame       ||
+        window.oCancelRequestAnimationFrame     ||
+        window.msCancelRequestAnimationFrame        ||
+        clearTimeout
+} )();
+
 class Controls extends Component {
 	constructor(props){
 		super(props);
@@ -14,12 +34,26 @@ class Controls extends Component {
 		this.resetRules = this.resetRules.bind(this);
 		this.toggleWrap = this.toggleWrap.bind(this);
 		this.clearGrid = this.clearGrid.bind(this);
+		this.draw = this.draw.bind(this);
+
 
 
 		this.state = {
 			rate: 400,
 			random: 50
 		};
+
+		this.animationId = null
+		this.fps = 60
+		this.now = null
+		this.then = Date.now();
+		this.interval = 1000/this.fps 
+		this.delta = null
+
+		// For this demo
+		this.counter = 0;
+		this.first = this.then;
+
 		this.selectRule = this.selectRule.bind(this)
 	} 
 
@@ -29,11 +63,39 @@ class Controls extends Component {
 		this.props.nextGeneration();
 	}	
 
-	toggleAutoGeneration(rate){
+	draw() {
+		this.animationId = window.requestAnimationFrame(this.draw);
+		
+		this.now = Date.now();
+		this.delta = this.now - this.then;
+		//console.log(delta);
+		if (this.delta > this.interval) { // interval = seconds per frame
+			
+			this.then = this.now - (this.delta % this.interval);
+			
+			// DO STUFF HERE
+			this.props.nextGeneration()
+		}   
+	}
+
+	start(){
+		this.draw()
+	}
+
+	cancel(){
+		window.cancelRequestAnimFrame(this.animationId)
+		this.animationId = null;
+	}
+
+	toggleAutoGeneration(){
 		const { auto } = this.props;
-		const updateRate = false;
+		// const updateRate = false;
 		this.props.toggleAutoGeneration();
-		this.setAutoGeneration(updateRate, auto, rate);
+		// this.setAutoGeneration(updateRate, auto, rate);
+		!auto ? 
+			this.start()
+			:
+			this.cancel()
 	}
 
 	setAutoGeneration(updateRate, setting, rate) {
@@ -105,14 +167,14 @@ class Controls extends Component {
 						<Button onButtonClick={this.toggleAutoGeneration} value={adjustedRate}>
 							{!auto ? "start" : "stop"}
 						</Button>
-						<input 
+						{/* <input 
 							type="range" 
 							min="0" 
 							max="800" 
 							value= {this.state.rate} 
 							id="utilslider"
 							onChange={this.onRateChange}
-						/>
+						/> */}
 						<Button onButtonClick={this.randomise} value={this.state.random}>
 							Randomise!
 						</Button>
