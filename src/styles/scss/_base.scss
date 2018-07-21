@@ -1,14 +1,14 @@
 
-.cell {
-	border: 1px solid black;
-	box-sizing: border-box;
-	font-size: 12px;
-}
-
-.living {
-	background-color: green;
-}
-
 .App {
 	text-align: center;
+	font-family: 'Aldrich', sans-serif;
+	color: $light;
+}
+
+html {
+	background-color: rgba(12, 11, 100, 0.781);
+}
+
+button {
+	font-family : inherit;
 }

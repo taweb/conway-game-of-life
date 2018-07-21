@@ -204,7 +204,7 @@ const clearGrid = (state) => {
 			...state.options,
 			count: 0
 		},
-		life: state.life.map(c => !c.live)
+		life: state.life.map(c => ({...c, live: false}))
 	}
 }
 
