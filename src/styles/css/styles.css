@@ -1,16 +1,16 @@
 .App {
   text-align: center;
   font-family: 'Aldrich', sans-serif;
-  color: rgba(253, 253, 253, 0.678); }
+  color: #d1d1d1; }
 
 html {
-  background-color: rgba(12, 11, 100, 0.781); }
+  background-color: #414284; }
 
 button {
   font-family: inherit; }
 
 .cell {
-  border: 0.5px solid rgba(253, 253, 253, 0.678);
+  border: 0.5px solid #d1d1d1;
   box-sizing: border-box;
   font-size: 12px; }
 
@@ -78,16 +78,23 @@ button {
 button {
   padding: 3px;
   margin: 2px 0px;
-  background-color: rgba(253, 253, 253, 0.678);
+  background-color: #d1d1d1;
   color: #555;
   outline: none;
   border: 2px solid #555;
   border-radius: 5px; }
   button:hover {
     background-color: #555;
-    color: rgba(253, 253, 253, 0.678); }
+    color: #d1d1d1; }
   button:active {
     transform: translateY(1px); }
+
+input {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg); }
 
 .helptip {
   top: 18px;

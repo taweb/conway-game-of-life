@@ -2,11 +2,30 @@ import React, { Component } from 'react';
 import Button from './Button';
 import LifeRules from './LifeRules';
 
+window.requestAnimationFrame = function() {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        function(f) {
+            window.setTimeout(f,1e3/60);
+        }
+}();
+
+window.cancelRequestAnimFrame = ( function() {
+    return window.cancelAnimationFrame          ||
+        window.webkitCancelRequestAnimationFrame    ||
+        window.mozCancelRequestAnimationFrame       ||
+        window.oCancelRequestAnimationFrame     ||
+        window.msCancelRequestAnimationFrame        ||
+        clearTimeout
+} )();
+
 class Controls extends Component {
 	constructor(props){
 		super(props);
 		this.nextGeneration = this.nextGeneration.bind(this);
-		this.setAutoGeneration = this.setAutoGeneration.bind(this);
 		this.toggleAutoGeneration = this.toggleAutoGeneration.bind(this);
 		this.randomise = this.randomise.bind(this);
 		this.onRateChange = this.onRateChange.bind(this);
@@ -14,13 +33,21 @@ class Controls extends Component {
 		this.resetRules = this.resetRules.bind(this);
 		this.toggleWrap = this.toggleWrap.bind(this);
 		this.clearGrid = this.clearGrid.bind(this);
-
+		this.draw = this.draw.bind(this);
+		this.selectRule = this.selectRule.bind(this)
 
 		this.state = {
 			rate: 400,
-			random: 50
+			random: 50,
+			pause: 20000
 		};
-		this.selectRule = this.selectRule.bind(this)
+
+		this.animationId = null
+		this.fps = 60
+		this.now = null
+		this.then = Date.now();
+		this.delta = null
+		this.first = this.then;
 	} 
 
 	nextGeneration(){
@@ -29,18 +56,34 @@ class Controls extends Component {
 		this.props.nextGeneration();
 	}	
 
-	toggleAutoGeneration(rate){
-		const { auto } = this.props;
-		const updateRate = false;
-		this.props.toggleAutoGeneration();
-		this.setAutoGeneration(updateRate, auto, rate);
+	draw() {
+		const { pause } = this.state;
+		this.animationId = window.requestAnimationFrame(this.draw);
+		const interval = pause/this.fps;
+		this.now = Date.now();
+		this.delta = this.now - this.then;
+		if (this.delta > interval) { // interval = seconds per frame
+			this.then = this.now - (this.delta % interval);
+			this.props.nextGeneration()
+		}   
 	}
 
-	setAutoGeneration(updateRate, setting, rate) {
-		!setting || updateRate ? 
-			this.update = setInterval(this.props.nextGeneration, rate)
+	start(){
+		this.draw()
+	}
+
+	cancel(){
+		window.cancelRequestAnimFrame(this.animationId)
+		this.animationId = null;
+	}
+
+	toggleAutoGeneration(){
+		const { auto } = this.props;
+		this.props.toggleAutoGeneration();
+		!auto ? 
+			this.start()
 			:
-			clearInterval(this.update);
+			this.cancel()
 	}
 
 	randomise(factor) {
@@ -54,18 +97,8 @@ class Controls extends Component {
 		const { value } = e.target;
 		this.setState({
 			...this.state,
-			rate: value
-		}, this.UpdateAutoGeneration(value, auto))
-	}
-
-	UpdateAutoGeneration(value, auto){
-		if (!auto) {
-			return;
-		}
-		clearInterval(this.update);
-		const updateRate = true;
-		const adjustedRate = 860 - value
-		this.setAutoGeneration(updateRate, auto, adjustedRate)
+			pause: value
+		})
 	}
 
 	selectOption(e) {
@@ -107,9 +140,9 @@ class Controls extends Component {
 						</Button>
 						<input 
 							type="range" 
-							min="0" 
-							max="800" 
-							value= {this.state.rate} 
+							min="5000" 
+							max="40000" 
+							value= {this.state.pause} 
 							id="utilslider"
 							onChange={this.onRateChange}
 						/>
