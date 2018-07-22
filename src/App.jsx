@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <LifeGrid cellSize={10} gridId={'life'}/> {/*cell size 15 */}
+        <LifeGrid cellSize={20} gridId={'life'}/> {/*cell size 15 */}
         <Controls />
       </div>
     );
