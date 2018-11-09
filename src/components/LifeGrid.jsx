@@ -10,7 +10,7 @@ class LifeGrid extends Component {
         const screenHeight = window.innerHeight;
 
         const maxGridWidth = screenWidth - 20;
-        const maxGridHeight = screenHeight - 200;
+        const maxGridHeight = screenHeight - 250;
 
         const calcNumCols = Math.floor(maxGridWidth / cellSize);
         const calcNumRows = Math.floor(maxGridHeight / cellSize);
