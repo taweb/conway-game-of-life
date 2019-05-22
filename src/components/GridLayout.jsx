@@ -1,5 +1,4 @@
 import React from 'react';
-import { Stage, Layer } from 'react-konva';
 import Cell from '../containers/Cell';
 
 const GridLayout = (props) => {
@@ -12,19 +11,14 @@ const GridLayout = (props) => {
 	}
 	return(
 		<div style={{display: 'flex', justifyContent: 'center'}}>
-			<Stage
-				height = {yDim * cellSize}
-				width = {xDim * cellSize}
-			>
-			{/* <div 
+			<div 
 				style={{
 					position: "relative", 
 					height: `${yDim * cellSize}px`, 
 					width: `${xDim * cellSize}px`, 
 					display: "inline-block"
 				}}
-			> */}
-				<Layer>
+			>
 				{cells.map(i=>{
 					return ( 
 						<Cell 
@@ -34,8 +28,7 @@ const GridLayout = (props) => {
 						/>
 					)
 				})}
-				</Layer>
-			</Stage>
+			</div>
 		</div>
 	)
 }
